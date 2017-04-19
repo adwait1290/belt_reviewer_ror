@@ -1,0 +1,22 @@
+<h1> <%= @event.name %> </h1>
+
+<p>Host : <%= @event.user %> </p>
+<p>Date : <%= @event.doe %> </p>
+<p>Location : <%= @event.city %> <%= @event.state %> </p>
+<p>People who are joining the event: <%= @event.users.count %> </p>
+
+<table>
+<thead> 
+	<tr>
+		<td>Name</td>
+		<td>Location</td>
+		<td>State</td>
+	</tr>
+</thead>
+	<% @events.users.each do |elem| in 0..@event.users.count %>
+	<tr>
+		<td><%= elem.name %></td>
+		<td><%= elem.city %></td>
+		<td><%= elem.state %></td>
+	</tr>
+</table>

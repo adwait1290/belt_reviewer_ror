@@ -1,0 +1,19 @@
+<form action="/users" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="create">
+    <label>First Name: </label>
+	<input type="text" id="First Name" name = "user[first_name]">
+	<label>Last Name: </label>
+	<input type="text" id="Last Name" name = "user[last_name]">
+	<label>Email: </label>
+	<input type="text" id="Email" name = "user[email]">
+	<label>City: </label>
+	<input type="text" id="City" name = "user[city]">
+	<label>State: </label>
+	<input type="text" id="State" name = "user[state]">
+	<label>Password: </label>
+	<input type="password" id="Password" name = "user[password]">
+	<label>Confirm Password: </label>	
+	<input type="password" id="Password_Confirmation" name = "user[password_confirmation">
+	<input type="submit" name="Join" value="Join">
+</form>

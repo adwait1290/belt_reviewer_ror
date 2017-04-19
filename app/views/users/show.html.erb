@@ -1,0 +1,99 @@
+<h1>Welcome <%= current_user.first_name %> </h1>
+<%= link_to "Edit Profile", edit_user_path(@user) %>
+
+<%= @state %>
+<h3>Here are some of the vevnts of your state:</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Date</td>
+			<td>Location</td>
+			<td>Host</td>
+			<td>Action/Status</td>
+		</tr>
+	</thead>
+		<% @events1.each do |elem| %> 
+		<tr>
+			<td><%= elem.name %> </td>
+			<td><%= elem.doe %> </td>
+			<td><%= elem.city %> <%= elem.state %></td>
+			<td><%= elem.user.first_name %> </td>
+			<td>
+				<% unless elem.users.include?(current_user) %>
+
+				<form action="/attendees" method="POST">
+					<input type="hidden" name="_method" value="create">
+					<input type="hidden" name="attendee[event_id]" value="<%= elem.id %>">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="submit" value="add Event">
+				</form>
+				
+				<% else %>
+				<form action="/attendees/<%= elem.id %>/" method="post">
+					<input type="hidden" name="_method" value="delete">
+					<input type="hidden" name="attendee[event_id]" value="<%= elem.id %>">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="submit" value="Remove">
+				</form>
+				<% end %>
+				<% if elem.user == current_user %>
+				<%= link_to "Edit Event", edit_event_path(elem.id) %>
+				<% end %>
+		</tr>
+		 <% end %>
+</table>
+<h3>Here are some of the events in some other states:</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Date</td>
+			<td>Location</td>
+			<td>Host</td>
+			<td>Action/Status</td>
+		</tr>
+	</thead>
+		<% @events2.each do |elem| %> 
+		<tr>
+			<td><%= elem.name %> </td>
+			<td><%= elem.doe %> </td>
+			<td><%= elem.city %> <%= elem.state %></td>
+			<td><%= elem.user.first_name %> </td>
+			<td>
+				<% unless elem.users.include?(current_user) %>
+
+				<form action="/attendees" method="POST">
+					<input type="hidden" name="_method" value="create">
+					<input type="hidden" name="attendee[event_id]" value="<%= elem.id %>">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="submit" value="add Event">
+				</form>
+				
+				<% else %>
+				<form action="/attendees/<%= elem.id %>" method="post">
+					<input type="hidden" name="_method" value="delete">
+					<input type="hidden" name="attendee[event_id]" value="<%= elem.id %>">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="submit" value="Remove">
+				</form>
+				<% end %>
+				<% if elem.user == current_user %>
+				<%= link_to "Edit Event", edit_event_path(elem.id) %>
+		</tr>
+				<% end %>
+		 <% end %>
+</table>
+
+
+<h2> Add Event </h2>
+<form action= "/events" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token  %>">
+	<input type="hidden" name="_method" value="create">
+	<label>Name: <input type="text" id="name" name="event[name]"> </label>
+	<label> Date: <input type="date" id="doe" name="event[doe]"> </label>
+	<label> Location: <input type="text" id="city" name="event[city]"><input type="text" id="state" name="event[state]"> </label>
+	<input type="submit" name="Add Event" value="Add Event">
+</form>
